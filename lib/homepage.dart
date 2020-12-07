@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/feed.dart';
+import 'package:instagram_clone/screens/feed.dart';
+import 'package:instagram_clone/screens/profile.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
     BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
     BottomNavigationBarItem(icon: Icon(Icons.healing), label: ""),
-    BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: ""),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
   ];
 
   int _selectedIndex = 0;
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     Container(color: Colors.blueAccent),
     Container(color: Colors.greenAccent),
     Container(color: Colors.cyanAccent),
-    Container(color: Colors.redAccent),
+    ProfileScreen(),
   ];
 
   @override
