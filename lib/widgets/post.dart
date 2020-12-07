@@ -21,16 +21,16 @@ class Post extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildPostHeader(),
-        _buildPostImage(),
-        _buildPostActionBtns(),
-        _buildPostLikes(),
-        _buildPostCaption(),
+        _postHeader(),
+        _postImage(),
+        _postActionBtns(),
+        _postLikes(),
+        _postCaption(),
       ],
     );
   }
 
-  Widget _buildPostActionBtns() {
+  Widget _postActionBtns() {
     return Row(
       children: <Widget>[
         IconButton(
@@ -62,7 +62,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Widget _buildPostHeader() {
+  Widget _postHeader() {
     var children2 = [
       Padding(
         padding: const EdgeInsets.all(COMMON_XXS_GAP),
@@ -79,7 +79,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Widget _buildPostImage() {
+  Widget _postImage() {
     return CachedNetworkImage(
         imageUrl: "https://picsum.photos/600/600?random=${index + 1}",
         placeholder: (BuildContext context, String url) {
@@ -102,7 +102,7 @@ class Post extends StatelessWidget {
         });
   }
 
-  Widget _buildPostLikes() {
+  Widget _postLikes() {
     return Padding(
       padding: const EdgeInsets.only(left: COMMON_GAP),
       child: Text(
@@ -112,7 +112,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Widget _buildPostCaption() {
+  Widget _postCaption() {
     return Comment(
         showImage: false,
         username: "sjquant",
