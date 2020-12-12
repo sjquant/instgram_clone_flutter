@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/screen_size.dart';
 import 'package:instagram_clone/constants/size.dart';
+import 'package:instagram_clone/widgets/rounded_avatar.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
@@ -22,6 +23,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       child: CustomScrollView(slivers: [
         SliverList(
             delegate: SliverChildListDelegate([
+          _profileHeader(),
           _username(),
           _userbio(),
           _profileEditBtn(),
@@ -32,6 +34,43 @@ class _ProfileBodyState extends State<ProfileBody> {
       ]),
     );
   }
+
+  Widget _profileHeader() {
+    return Padding(
+      padding: const EdgeInsets.all(COMMON_GAP),
+      child: Row(children: [
+        RoundedAvatar(size: 80),
+        Expanded(
+          child: Table(
+            children: [
+              TableRow(children: [
+                _valueText("132"),
+                _valueText("30.4k"),
+                _valueText("48")
+              ]),
+              TableRow(children: [
+                _labelText("Posts"),
+                _labelText("Follwers"),
+                _labelText("Following")
+              ]),
+            ],
+          ),
+        )
+      ]),
+    );
+  }
+
+  Text _valueText(String value) => Text(
+        value,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      );
+
+  Text _labelText(String label) => Text(
+        label,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.w400, fontSize: 11),
+      );
 
   Widget _imagesPager() {
     return SliverToBoxAdapter(
