@@ -5,8 +5,10 @@ import 'package:instagram_clone/constants/size.dart';
 import 'package:instagram_clone/widgets/rounded_avatar.dart';
 
 class ProfileBody extends StatefulWidget {
+  final Function() onMenuChanged;
   const ProfileBody({
     Key key,
+    this.onMenuChanged,
   }) : super(key: key);
 
   @override
@@ -19,6 +21,34 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _appbar(),
+        _body(),
+      ],
+    );
+  }
+
+  Widget _appbar() {
+    return SafeArea(
+      child: Row(
+        children: [
+          SizedBox(width: 48),
+          Expanded(
+            child: Text(
+              "SJQuant",
+              textAlign: TextAlign.center,
+            ),
+          ),
+          IconButton(
+              icon: Icon(Icons.more_horiz), onPressed: widget.onMenuChanged)
+        ],
+      ),
+    );
+  }
+
+  Widget _body() {
     return Expanded(
       child: CustomScrollView(slivers: [
         SliverList(

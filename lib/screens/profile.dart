@@ -1,34 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/constants/screen_size.dart';
 import 'package:instagram_clone/widgets/profile_body.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final Duration _duration = Duration(milliseconds: 300);
+  bool _isMenuOpened = false;
+  double _menuPosition = size.width;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[100],
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _appbar(),
-            ProfileBody(),
-          ],
-        ));
+        body: Stack(children: [
+          AnimatedContainer(
+            child: ProfileBody(
+              onMenuChanged: _changeMenu,
+            ),
+            duration: _duration,
+            curve: Curves.fastOutSlowIn,
+            transform:
+                Matrix4.translationValues(_menuPosition - size.width, 0, 0),
+          ),
+          Positioned(
+              top: 0,
+              bottom: 0,
+              width: size.width / 2,
+              child: AnimatedContainer(
+                child: Container(
+                  color: Colors.grey[300],
+                ),
+                duration: _duration,
+                transform: Matrix4.translationValues(_menuPosition, 0, 0),
+                curve: Curves.fastOutSlowIn,
+              ))
+        ]));
   }
 
-  Widget _appbar() {
-    return SafeArea(
-      child: Row(
-        children: [
-          SizedBox(width: 48),
-          Expanded(
-            child: Text(
-              "SJQuant",
-              textAlign: TextAlign.center,
-            ),
-          ),
-          IconButton(icon: Icon(Icons.more_horiz), onPressed: null)
-        ],
-      ),
-    );
+  void _changeMenu() {
+    setState(() {
+      _isMenuOpened = !_isMenuOpened;
+
+      if (_isMenuOpened) {
+        _menuPosition = size.width / 2;
+      } else {
+        _menuPosition = size.width;
+      }
+    });
   }
 }
