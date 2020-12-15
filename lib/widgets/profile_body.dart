@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/constants/duration.dart';
 import 'package:instagram_clone/constants/screen_size.dart';
 import 'package:instagram_clone/constants/size.dart';
 import 'package:instagram_clone/widgets/rounded_avatar.dart';
@@ -112,7 +113,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   AnimatedContainer _rightImagesPager() {
     return AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: COMMON_DURATION,
         transform:
             Matrix4.translationValues(_leftImagesPageMargin + size.width, 0, 0),
         curve: Curves.fastOutSlowIn,
@@ -132,7 +133,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   AnimatedContainer _leftImagesPager() {
     return AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: COMMON_DURATION,
         transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
         curve: Curves.fastOutSlowIn,
         child: GridView.count(
@@ -151,7 +152,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   Widget _animatedLine() {
     return AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: COMMON_DURATION,
         alignment: _selectedTab == SelectedTab.left
             ? Alignment.centerLeft
             : Alignment.centerRight,

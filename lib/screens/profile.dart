@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/constants/duration.dart';
 import 'package:instagram_clone/constants/screen_size.dart';
 import 'package:instagram_clone/widgets/profile_body.dart';
+import 'package:instagram_clone/widgets/profile_side_menu.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -8,7 +10,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final Duration _duration = Duration(milliseconds: 300);
+  final double _menuWidth = size.width * 2 / 3;
   bool _isMenuOpened = false;
   double _menuPosition = size.width;
 
@@ -21,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: ProfileBody(
               onMenuChanged: _changeMenu,
             ),
-            duration: _duration,
+            duration: COMMON_DURATION,
             curve: Curves.fastOutSlowIn,
             transform:
                 Matrix4.translationValues(_menuPosition - size.width, 0, 0),
@@ -29,12 +31,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Positioned(
               top: 0,
               bottom: 0,
-              width: size.width / 2,
+              width: _menuWidth,
               child: AnimatedContainer(
-                child: Container(
-                  color: Colors.grey[300],
-                ),
-                duration: _duration,
+                child: ProfileSideMenu(_menuWidth),
+                duration: COMMON_DURATION,
                 transform: Matrix4.translationValues(_menuPosition, 0, 0),
                 curve: Curves.fastOutSlowIn,
               ))
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _isMenuOpened = !_isMenuOpened;
 
       if (_isMenuOpened) {
-        _menuPosition = size.width / 2;
+        _menuPosition = size.width - _menuWidth;
       } else {
         _menuPosition = size.width;
       }
