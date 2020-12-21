@@ -16,9 +16,24 @@ class ProfileBody extends StatefulWidget {
   _ProfileBodyState createState() => _ProfileBodyState();
 }
 
-class _ProfileBodyState extends State<ProfileBody> {
+class _ProfileBodyState extends State<ProfileBody>
+    with SingleTickerProviderStateMixin {
   SelectedTab _selectedTab = SelectedTab.left;
   double _leftImagesPageMargin = 0;
+  AnimationController _menuController;
+
+  @override
+  void initState() {
+    _menuController =
+        AnimationController(vsync: this, duration: COMMON_DURATION);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _menuController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +58,17 @@ class _ProfileBodyState extends State<ProfileBody> {
             ),
           ),
           IconButton(
-              icon: Icon(Icons.more_horiz), onPressed: widget.onMenuChanged)
+              icon: AnimatedIcon(
+                icon: AnimatedIcons.menu_close,
+                progress: _menuController,
+              ),
+              onPressed: () {
+                widget.onMenuChanged();
+                print(_menuController.status);
+                _menuController.status == AnimationStatus.completed
+                    ? _menuController.reverse()
+                    : _menuController.forward();
+              })
         ],
       ),
     );
