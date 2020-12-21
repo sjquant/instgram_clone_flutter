@@ -28,16 +28,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             transform:
                 Matrix4.translationValues(_menuPosition - size.width, 0, 0),
           ),
-          Positioned(
-              top: 0,
-              bottom: 0,
-              width: _menuWidth,
-              child: AnimatedContainer(
-                child: ProfileSideMenu(_menuWidth),
-                duration: COMMON_DURATION,
-                transform: Matrix4.translationValues(_menuPosition, 0, 0),
-                curve: Curves.fastOutSlowIn,
-              ))
+          AnimatedContainer(
+            child: ProfileSideMenu(_menuWidth),
+            duration: COMMON_DURATION,
+            transform: Matrix4.translationValues(_menuPosition, 0, 0),
+            curve: Curves.fastOutSlowIn,
+          )
         ]));
   }
 
