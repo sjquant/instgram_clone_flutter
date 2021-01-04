@@ -18,8 +18,15 @@ class _AuthScreenState extends State<AuthScreen> {
           FadeStack(
             currentStackIndex: currentStackIndex,
           ),
-          Container(
-            child: FlatButton(
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 40,
+            child: Container(
+              color: Colors.white,
+              child: FlatButton(
+                shape: Border(top: BorderSide(color: Colors.grey[300])),
                 onPressed: () {
                   setState(() {
                     if (currentStackIndex == 0)
@@ -28,7 +35,20 @@ class _AuthScreenState extends State<AuthScreen> {
                       currentStackIndex = 0;
                   });
                 },
-                child: Text("Go to Sign up")),
+                child: RichText(
+                    text: TextSpan(
+                        text: (currentStackIndex == 0)
+                            ? "Already have an account?  "
+                            : "Don't you have an account?  ",
+                        style: TextStyle(color: Colors.grey),
+                        children: [
+                      TextSpan(
+                          text:
+                              (currentStackIndex == 0) ? "Sign In" : "Sgin up",
+                          style: TextStyle(color: Colors.blue))
+                    ])),
+              ),
+            ),
           ),
         ],
       ),
