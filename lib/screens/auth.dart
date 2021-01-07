@@ -37,14 +37,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
                 child: RichText(
                     text: TextSpan(
-                        text: (currentStackIndex == 0)
+                        text: (currentStackIndex == 1)
                             ? "Already have an account?  "
                             : "Don't you have an account?  ",
                         style: TextStyle(color: Colors.grey),
                         children: [
                       TextSpan(
                           text:
-                              (currentStackIndex == 0) ? "Sign In" : "Sgin up",
+                              (currentStackIndex == 1) ? "Sign In" : "Sgin up",
                           style: TextStyle(color: Colors.blue))
                     ])),
               ),
