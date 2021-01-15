@@ -9,10 +9,14 @@ class SigninForm extends StatefulWidget {
 class _SigninFormState extends State<SigninForm> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _pwController = TextEditingController();
+  TextEditingController _cpwController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
+    _pwController.dispose();
+    _cpwController.dispose();
     super.dispose();
   }
 
@@ -30,13 +34,7 @@ class _SigninFormState extends State<SigninForm> {
               Image.asset("assets/images/insta_text_logo.png"),
               TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(
-                      hintText: "Email",
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[200]),
-                          borderRadius: BorderRadius.circular(8)),
-                      filled: true,
-                      fillColor: Colors.grey[100]),
+                  decoration: _decorateInput("Email"),
                   validator: (text) {
                     if (text.isNotEmpty && text.contains("@")) {
                       return null;
@@ -44,10 +42,40 @@ class _SigninFormState extends State<SigninForm> {
                       return "정확한 이메일 주소를 입력해주세요.";
                     }
                   }),
-              TextFormField(),
-              TextFormField(),
+              SizedBox(height: COMMON_GAP),
+              TextFormField(
+                  controller: _emailController,
+                  decoration: _decorateInput("Password"),
+                  validator: (text) {
+                    if (text.isNotEmpty && text.length > 7) {
+                      return null;
+                    } else {
+                      return "정확한 비밀번호를 입력해주세요.";
+                    }
+                  }),
+              SizedBox(height: COMMON_GAP),
+              TextFormField(
+                  controller: _emailController,
+                  decoration: _decorateInput("Confirm Password"),
+                  validator: (text) {
+                    if (text.isNotEmpty && text == _pwController.text) {
+                      return null;
+                    } else {
+                      return "비밀번호가 일치하지 않습니다.";
+                    }
+                  }),
             ],
           )),
     );
+  }
+
+  InputDecoration _decorateInput(String hint) {
+    return InputDecoration(
+        hintText: hint,
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[200]),
+            borderRadius: BorderRadius.circular(8)),
+        filled: true,
+        fillColor: Colors.grey[100]);
   }
 }
