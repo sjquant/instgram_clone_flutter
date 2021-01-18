@@ -44,7 +44,8 @@ class _SigninFormState extends State<SigninForm> {
                   }),
               SizedBox(height: COMMON_GAP),
               TextFormField(
-                  controller: _emailController,
+                  controller: _pwController,
+                  obscureText: true,
                   decoration: _decorateInput("Password"),
                   validator: (text) {
                     if (text.isNotEmpty && text.length > 7) {
@@ -55,7 +56,8 @@ class _SigninFormState extends State<SigninForm> {
                   }),
               SizedBox(height: COMMON_GAP),
               TextFormField(
-                  controller: _emailController,
+                  controller: _cpwController,
+                  obscureText: true,
                   decoration: _decorateInput("Confirm Password"),
                   validator: (text) {
                     if (text.isNotEmpty && text == _pwController.text) {
@@ -64,6 +66,21 @@ class _SigninFormState extends State<SigninForm> {
                       return "비밀번호가 일치하지 않습니다.";
                     }
                   }),
+              SizedBox(height: COMMON_GAP),
+              FlatButton(
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    print("Validation Success!!");
+                  }
+                },
+                child: Text(
+                  "Join",
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6)),
+              )
             ],
           )),
     );
@@ -72,6 +89,15 @@ class _SigninFormState extends State<SigninForm> {
   InputDecoration _decorateInput(String hint) {
     return InputDecoration(
         hintText: hint,
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[200]),
+            borderRadius: BorderRadius.circular(8)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red[200]),
+            borderRadius: BorderRadius.circular(8)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red[200]),
+            borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[200]),
             borderRadius: BorderRadius.circular(8)),
