@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/size.dart';
+import 'package:instagram_clone/homepage.dart';
 
-class SigninForm extends StatefulWidget {
+class SignupForm extends StatefulWidget {
   @override
   _SigninFormState createState() => _SigninFormState();
 }
 
-class _SigninFormState extends State<SigninForm> {
+class _SigninFormState extends State<SignupForm> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _pwController = TextEditingController();
@@ -34,58 +35,100 @@ class _SigninFormState extends State<SigninForm> {
                   height: COMMON_L_GAP,
                 ),
                 Image.asset("assets/images/insta_text_logo.png"),
-                TextFormField(
-                    controller: _emailController,
-                    decoration: _decorateInput("Email"),
-                    validator: (text) {
-                      if (text.isNotEmpty && text.contains("@")) {
-                        return null;
-                      } else {
-                        return "정확한 이메일 주소를 입력해주세요.";
-                      }
-                    }),
+                _emailInput(),
                 SizedBox(height: COMMON_GAP),
-                TextFormField(
-                    controller: _pwController,
-                    obscureText: true,
-                    decoration: _decorateInput("Password"),
-                    validator: (text) {
-                      if (text.isNotEmpty && text.length > 7) {
-                        return null;
-                      } else {
-                        return "정확한 비밀번호를 입력해주세요.";
-                      }
-                    }),
+                _passwordInput(),
                 SizedBox(height: COMMON_GAP),
-                TextFormField(
-                    controller: _cpwController,
-                    obscureText: true,
-                    decoration: _decorateInput("Confirm Password"),
-                    validator: (text) {
-                      if (text.isNotEmpty && text == _pwController.text) {
-                        return null;
-                      } else {
-                        return "비밀번호가 일치하지 않습니다.";
-                      }
-                    }),
+                _confirmPasswordInput(),
                 SizedBox(height: COMMON_GAP),
-                FlatButton(
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      print("Validation Success!!");
-                    }
-                  },
-                  child: Text(
-                    "Join",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6)),
-                )
+                _joinButton(),
+                SizedBox(height: COMMON_GAP),
+                _orDivider(),
+                SizedBox(height: COMMON_GAP),
+                _facebookBtn()
               ],
             )),
       ),
+    );
+  }
+
+  FlatButton _facebookBtn() {
+    return FlatButton.icon(
+        textColor: Colors.blue,
+        onPressed: () {},
+        icon: ImageIcon(AssetImage("assets/images/facebook.png")),
+        label: Text("Login with Facebook"));
+  }
+
+  Stack _orDivider() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(color: Colors.grey[300], height: 1),
+        Container(color: Colors.grey[50], width: 60, height: 3),
+        Text(
+          "OR",
+          style: TextStyle(color: Colors.grey[500]),
+        )
+      ],
+    );
+  }
+
+  TextFormField _confirmPasswordInput() {
+    return TextFormField(
+        controller: _cpwController,
+        obscureText: true,
+        decoration: _decorateInput("Confirm Password"),
+        validator: (text) {
+          if (text.isNotEmpty && text == _pwController.text) {
+            return null;
+          } else {
+            return "비밀번호가 일치하지 않습니다.";
+          }
+        });
+  }
+
+  TextFormField _passwordInput() {
+    return TextFormField(
+        controller: _pwController,
+        obscureText: true,
+        decoration: _decorateInput("Password"),
+        validator: (text) {
+          if (text.isNotEmpty && text.length > 7) {
+            return null;
+          } else {
+            return "8자리 이상의 비밀번호를 입력해주세요.";
+          }
+        });
+  }
+
+  TextFormField _emailInput() {
+    return TextFormField(
+        controller: _emailController,
+        decoration: _decorateInput("Email"),
+        validator: (text) {
+          if (text.isNotEmpty && text.contains("@")) {
+            return null;
+          } else {
+            return "정확한 이메일 주소를 입력해주세요.";
+          }
+        });
+  }
+
+  FlatButton _joinButton() {
+    return FlatButton(
+      onPressed: () {
+        if (_formKey.currentState.validate()) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomePage()));
+        }
+      },
+      child: Text(
+        "Join",
+        style: TextStyle(color: Colors.white),
+      ),
+      color: Colors.blue,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     );
   }
 
