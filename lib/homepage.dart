@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/screens/camera.dart';
 import 'package:instagram_clone/screens/feed.dart';
 import 'package:instagram_clone/screens/profile.dart';
 
@@ -48,9 +49,20 @@ class _HomePageState extends State<HomePage> {
             onTap: _selectBtmIcon));
   }
 
-  void _selectBtmIcon(int value) {
+  void _selectBtmIcon(int idx) {
     setState(() {
-      _selectedIndex = value;
+      switch (idx) {
+        case 2:
+          _oepnCamera();
+          break;
+        default:
+          _selectedIndex = idx;
+      }
     });
+  }
+
+  void _oepnCamera() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
   }
 }
