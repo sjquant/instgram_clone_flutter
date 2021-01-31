@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/color.dart';
 import 'package:instagram_clone/homepage.dart';
-import 'package:instagram_clone/screens/auth.dart';
+// import 'package:instagram_clone/screens/auth.dart';
 
 void main() {
   runApp(MyApp());
