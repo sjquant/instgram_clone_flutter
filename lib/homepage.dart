@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:instagram_clone/screens/camera.dart';
 import 'package:instagram_clone/screens/feed.dart';
 import 'package:instagram_clone/screens/profile.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _selectedIndex = 0;
+  GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   static List<Widget> _screens = [
     FeedScreen(),
@@ -38,6 +40,7 @@ class _HomePageState extends State<HomePage> {
     if (size == null) size = MediaQuery.of(context).size;
 
     return Scaffold(
+        key: _key,
         body: IndexedStack(index: _selectedIndex, children: _screens),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedIndex,
@@ -61,8 +64,33 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _oepnCamera() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+  void _oepnCamera() async {
+    if (await _checkPermissionGranted()) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+    } else {
+      SnackBar snackbar = SnackBar(
+          content: Text('사진과 마이크 권한을 허용해주세요.'),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {
+              _key.currentState.hideCurrentSnackBar();
+            },
+          ));
+      _key.currentState.showSnackBar(snackbar);
+    }
+  }
+
+  Future<bool> _checkPermissionGranted() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.microphone,
+    ].request();
+
+    bool granted = true;
+    statuses.forEach((permission, status) {
+      if (!status.isGranted) granted = false;
+    });
+    return granted;
   }
 }
