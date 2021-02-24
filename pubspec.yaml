@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   camera: 0.7.0+1
   permission_handler: 5.1.0+2
+  app_settings: 4.0.4
 
 dev_dependencies:
   flutter_test:

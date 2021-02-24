@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:instagram_clone/screens/camera.dart';
@@ -70,11 +71,12 @@ class _HomePageState extends State<HomePage> {
           .push(MaterialPageRoute(builder: (context) => CameraScreen()));
     } else {
       SnackBar snackbar = SnackBar(
-          content: Text('사진과 마이크 권한을 허용해주세요.'),
+          content: Text('카메라와 마이크 권한을 허용해주세요.'),
           action: SnackBarAction(
             label: 'OK',
             onPressed: () {
               _key.currentState.hideCurrentSnackBar();
+              AppSettings.openAppSettings();
             },
           ));
       _key.currentState.showSnackBar(snackbar);
