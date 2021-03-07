@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/screen_size.dart';
 import 'package:instagram_clone/models/camera_state.dart';
+import 'package:instagram_clone/screens/share_post.dart';
 import 'package:provider/provider.dart';
 
 import 'loding_indicator.dart';
@@ -32,7 +33,9 @@ class _TakePhotoState extends State<TakePhoto> {
                   cameraState.isReady ? _getPreview(cameraState) : _progress),
           Expanded(
             child: OutlineButton(
-              onPressed: () {},
+              onPressed: () {
+                _takePicture(cameraState, context);
+              },
               shape: CircleBorder(),
               borderSide: BorderSide(color: Colors.black12, width: 16),
             ),
@@ -55,5 +58,15 @@ class _TakePhotoState extends State<TakePhoto> {
         ),
       ),
     );
+  }
+
+  void _takePicture(CameraState cameraState, BuildContext context) async {
+    try {
+      XFile imageFile = await cameraState.controller.takePicture();
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => SharePostScreen(
+                imageFile?.path,
+              )));
+    } catch (e) {}
   }
 }
