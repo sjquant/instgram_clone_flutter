@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class SharePostScreen extends StatelessWidget {
-  final String imagePath;
+  final Image image;
 
-  const SharePostScreen(this.imagePath, {Key key}) : super(key: key);
+  const SharePostScreen(this.image, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Image.file(File(this.imagePath));
+    return this.image;
   }
 }

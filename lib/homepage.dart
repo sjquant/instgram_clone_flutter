@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           .push(MaterialPageRoute(builder: (context) => CameraScreen()));
     } else {
       SnackBar snackbar = SnackBar(
-          content: Text('카메라와 마이크 권한을 허용해주세요.'),
+          content: Text('권한을 허용해주세요.'),
           action: SnackBarAction(
             label: 'OK',
             onPressed: () {
@@ -87,6 +89,7 @@ class _HomePageState extends State<HomePage> {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.microphone,
+      Platform.isIOS ? Permission.photos : Permission.storage
     ].request();
 
     bool granted = true;

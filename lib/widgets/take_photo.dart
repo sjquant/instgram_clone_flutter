@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/screen_size.dart';
@@ -61,12 +63,10 @@ class _TakePhotoState extends State<TakePhoto> {
   }
 
   void _takePicture(CameraState cameraState, BuildContext context) async {
-    try {
-      XFile imageFile = await cameraState.controller.takePicture();
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => SharePostScreen(
-                imageFile?.path,
-              )));
-    } catch (e) {}
+    XFile imageFile = await cameraState.controller.takePicture();
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SharePostScreen(
+              Image.file(File(imageFile?.path)),
+            )));
   }
 }
