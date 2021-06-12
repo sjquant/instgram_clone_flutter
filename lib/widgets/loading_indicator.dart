@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class LodingIndicator extends StatelessWidget {
+class LoadingIndicator extends StatelessWidget {
   final double containerSize;
   final double progressSize;
 
-  const LodingIndicator({Key key, this.containerSize, this.progressSize = 60})
+  const LoadingIndicator({Key key, this.containerSize, this.progressSize = 60})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

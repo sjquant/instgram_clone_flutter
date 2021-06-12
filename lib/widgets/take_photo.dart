@@ -7,7 +7,7 @@ import 'package:instagram_clone/models/camera_state.dart';
 import 'package:instagram_clone/screens/share_post.dart';
 import 'package:provider/provider.dart';
 
-import 'loding_indicator.dart';
+import 'loading_indicator.dart';
 
 class TakePhoto extends StatefulWidget {
   const TakePhoto({
@@ -19,7 +19,7 @@ class TakePhoto extends StatefulWidget {
 }
 
 class _TakePhotoState extends State<TakePhoto> {
-  Widget _progress = LodingIndicator();
+  Widget _progress = LoadingIndicator();
 
   @override
   Widget build(BuildContext context) {

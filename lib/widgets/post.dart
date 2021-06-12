@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/screen_size.dart';
 import 'package:instagram_clone/constants/size.dart';
 import 'package:instagram_clone/widgets/comment.dart';
-import 'package:instagram_clone/widgets/loding_indicator.dart';
+import 'package:instagram_clone/widgets/loading_indicator.dart';
 import 'package:instagram_clone/widgets/rounded_avatar.dart';
 
 class Post extends StatelessWidget {
@@ -81,7 +81,7 @@ class Post extends StatelessWidget {
     return CachedNetworkImage(
         imageUrl: "https://picsum.photos/600/600?random=${index + 1}",
         placeholder: (BuildContext context, String url) {
-          return LodingIndicator(
+          return LoadingIndicator(
             containerSize: size.width,
             progressSize: 80,
           );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/size.dart';
 import 'package:instagram_clone/homepage.dart';
+import 'package:instagram_clone/models/firebase_auth_state.dart';
+import 'package:provider/provider.dart';
 
 class SigninForm extends StatefulWidget {
   @override
@@ -57,7 +59,10 @@ class _SigninFormState extends State<SigninForm> {
   FlatButton _facebookBtn() {
     return FlatButton.icon(
         textColor: Colors.blue,
-        onPressed: () {},
+        onPressed: () {
+          Provider.of<FirebaseAuthState>(context, listen: false)
+              .changeFirebaseAuthStatus(FirebaseAuthStatus.signin);
+        },
         icon: ImageIcon(AssetImage("assets/images/facebook.png")),
         label: Text("Login with Facebook"));
   }
@@ -107,8 +112,9 @@ class _SigninFormState extends State<SigninForm> {
     return FlatButton(
       onPressed: () {
         if (_formKey.currentState.validate()) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
+          Provider.of<FirebaseAuthState>(context, listen: false).signIn(context,
+              email: _emailController.text.trim(),
+              password: _pwController.text.trim());
         }
       },
       child: Text(
