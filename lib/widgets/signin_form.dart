@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constants/size.dart';
-import 'package:instagram_clone/homepage.dart';
 import 'package:instagram_clone/models/firebase_auth_state.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +60,7 @@ class _SigninFormState extends State<SigninForm> {
         textColor: Colors.blue,
         onPressed: () {
           Provider.of<FirebaseAuthState>(context, listen: false)
-              .changeFirebaseAuthStatus(FirebaseAuthStatus.signin);
+              .signInWithFacebook(context);
         },
         icon: ImageIcon(AssetImage("assets/images/facebook.png")),
         label: Text("Login with Facebook"));

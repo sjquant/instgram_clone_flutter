@@ -34,6 +34,7 @@ dependencies:
   provider: ^4.3.3
   local_image_provider: ^2.3.1
   firebase_auth: ^0.20.1
+  flutter_facebook_login: ^1.0.3
 
 dev_dependencies:
   flutter_test:
